@@ -197,7 +197,9 @@ Options for getting an application icon.
 
 Construct a type with a set of properties K of type T
 
-<code>{ [P in K]: T; }</code>
+<code>{
+ [P in K]: T;
+ }</code>
 
 
 ### Enums
@@ -212,3 +214,7 @@ Construct a type with a set of properties K of type T
 | **`FirstUser`** | <code>1</code>  | First custom user-defined result code. |
 
 </docgen-api>
+
+# Credit
+
+Based on the (Expo plugin)[https://docs.expo.dev/versions/latest/sdk/intent-launcher/]
