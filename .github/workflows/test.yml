@@ -9,6 +9,18 @@ on:
   workflow_call:  # Allow this workflow to be called by other workflows
 
 jobs:
+  build_ios:
+    runs-on: macOS-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+      - name: Install dependencies
+        id: install_code
+        run: bun i
+      - name: Build
+        id: build_code
+        run: bun run verify:ios
   build_android:
     runs-on: ubuntu-latest
     steps:
