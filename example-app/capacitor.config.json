@@ -1,0 +1,10 @@
+{
+  "appId": "app.capgo.intentlauncher",
+  "appName": "Intent Launcher Example",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": false
+    }
+  }
+}
