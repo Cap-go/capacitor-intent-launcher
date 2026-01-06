@@ -1,7 +1,7 @@
 {
   "name": "@capgo/capacitor-intent-launcher",
   "version": "8.1.1",
-  "description": "Launch Android intents and open system settings screens from your Capacitor app.",
+  "description": "Capacitor plugin to launch Android intents and open system settings screens on Android and iOS.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -28,13 +28,14 @@
     "intent",
     "launcher",
     "android",
+    "ios",
     "settings",
     "plugin",
     "native"
   ],
   "scripts": {
     "verify": "npm run verify:ios && npm run verify:android && npm run verify:web",
-    "verify:ios": "cd ios && pod lib lint --allow-warnings ../../CapgoIntentLauncher.podspec || true && cd ..",
+    "verify:ios": "xcodebuild -scheme CapgoIntentLauncher -destination generic/platform=iOS",
     "verify:android": "cd android && ./gradlew clean build test && cd ..",
     "verify:web": "npm run build",
     "lint": "npm run eslint && npm run prettier -- --check",

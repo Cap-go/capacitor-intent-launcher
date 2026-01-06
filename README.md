@@ -6,20 +6,21 @@
   <h2><a href="https://capgo.app/consulting/?ref=plugin_intent_launcher"> Missing a feature? We'll build the plugin for you 💪</a></h2>
 </div>
 
-Launch Android intents and open system settings screens from your Capacitor app.
+Launch Android intents and open system settings screens on Android and iOS from your Capacitor app.
 
 ## Why Capacitor Intent Launcher?
 
-A simple, **free**, and **lightweight** Android intent launcher plugin:
+A simple, **free**, and **lightweight** intent launcher plugin for both Android and iOS:
 
-- **System settings access** - Open any Android settings screen (WiFi, Bluetooth, Location, etc.)
-- **App launching** - Open any installed application by package name
-- **App icon retrieval** - Get application icons as base64-encoded images
-- **Full intent support** - Pass extras, flags, data URIs, and MIME types
-- **Activity results** - Receive result codes and data from launched activities
+- **System settings access** - Open any Android settings screen (WiFi, Bluetooth, Location, etc.) or iOS settings screens
+- **iOS settings support** - Open iOS settings screens including app settings, WiFi, Bluetooth, notifications, and more
+- **App launching** - Open any installed application by package name (Android)
+- **App icon retrieval** - Get application icons as base64-encoded images (Android)
+- **Full intent support** - Pass extras, flags, data URIs, and MIME types (Android)
+- **Activity results** - Receive result codes and data from launched activities (Android)
 - **Zero dependencies** - Minimal footprint, no bloat
 
-Perfect for apps that need to guide users to system settings, launch external apps, or integrate with Android's intent system.
+Perfect for apps that need to guide users to system settings on both platforms.
 
 ## Documentation
 
@@ -38,17 +39,30 @@ Works out of the box. No additional configuration required.
 
 ## iOS
 
-This plugin is **Android only**. iOS does not support launching arbitrary intents or opening system settings programmatically in the same way Android does.
+Works out of the box. Use the `openIOSSettings()` method to open iOS settings screens.
+
+**Important:** The only officially supported option by Apple is `IOSSettings.App` which opens your app's settings page. Other options use undocumented URL schemes (`App-prefs:`) that may break in future iOS versions or could potentially cause App Store rejection.
+
+```typescript
+import { IntentLauncher, IOSSettings } from '@capgo/capacitor-intent-launcher';
+
+// Open app settings (officially supported by Apple)
+await IntentLauncher.openIOSSettings({ option: IOSSettings.App });
+
+// Open WiFi settings (may not work in all iOS versions)
+await IntentLauncher.openIOSSettings({ option: IOSSettings.WiFi });
+```
 
 ## Web
 
-Not supported. This plugin uses Android-specific APIs.
+Not supported. This plugin uses native platform APIs.
 
 ## API
 
 <docgen-index>
 
 * [`startActivityAsync(...)`](#startactivityasync)
+* [`openIOSSettings(...)`](#openiossettings)
 * [`openApplication(...)`](#openapplication)
 * [`getApplicationIconAsync(...)`](#getapplicationiconasync)
 * [`getPluginVersion()`](#getpluginversion)
@@ -61,7 +75,7 @@ Not supported. This plugin uses Android-specific APIs.
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-Capacitor Intent Launcher Plugin for launching Android intents and opening system settings.
+Capacitor Intent Launcher Plugin for launching Android intents and opening system settings on both Android and iOS.
 
 ### startActivityAsync(...)
 
@@ -78,6 +92,28 @@ Starts an Android activity for the given action.
 **Returns:** <code>Promise&lt;<a href="#intentlauncherresult">IntentLauncherResult</a>&gt;</code>
 
 **Since:** 1.0.0
+
+--------------------
+
+
+### openIOSSettings(...)
+
+```typescript
+openIOSSettings(options: IOSSettingsParams) => Promise<IOSSettingsResult>
+```
+
+Opens iOS settings screen.
+
+Note: The only officially supported option by Apple is `App` which opens your app's settings page.
+Other options may work but are not guaranteed and could break in future iOS versions or cause App Store rejection.
+
+| Param         | Type                                                            | Description                       |
+| ------------- | --------------------------------------------------------------- | --------------------------------- |
+| **`options`** | <code><a href="#iossettingsparams">IOSSettingsParams</a></code> | - The iOS settings option to open |
+
+**Returns:** <code>Promise&lt;<a href="#iossettingsresult">IOSSettingsResult</a>&gt;</code>
+
+**Since:** 8.2.0
 
 --------------------
 
@@ -161,6 +197,24 @@ Options for starting an activity.
 | **`flags`**       | <code>number</code>                                              | Optional intent flags as a bitmask.                           | 1.0.0 |
 | **`packageName`** | <code>string</code>                                              | Optional package name for the component.                      | 1.0.0 |
 | **`type`**        | <code>string</code>                                              | Optional MIME type for the intent data.                       | 1.0.0 |
+
+
+#### IOSSettingsResult
+
+Result from opening iOS settings.
+
+| Prop          | Type                 | Description                                          | Since |
+| ------------- | -------------------- | ---------------------------------------------------- | ----- |
+| **`success`** | <code>boolean</code> | Whether the settings screen was successfully opened. | 8.2.0 |
+
+
+#### IOSSettingsParams
+
+Options for opening iOS settings.
+
+| Prop         | Type                | Description                                                          | Since |
+| ------------ | ------------------- | -------------------------------------------------------------------- | ----- |
+| **`option`** | <code>string</code> | The iOS settings screen to open. Use values from `IOSSettings` enum. | 8.2.0 |
 
 
 #### OpenApplicationOptions
