@@ -14,7 +14,7 @@ public class IntentLauncherPlugin: CAPPlugin, CAPBridgedPlugin {
         CAPPluginMethod(name: "getPluginVersion", returnType: CAPPluginReturnPromise)
     ]
 
-    private let pluginVersion = "8.1.1"
+    private let pluginVersion = "8.2.1"
 
     // iOS Settings URL paths mapping
     // Note: Only "app" is officially supported by Apple. Other paths may break in future iOS versions.
