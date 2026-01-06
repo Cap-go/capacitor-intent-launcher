@@ -43,6 +43,8 @@ Works out of the box. Use the `openIOSSettings()` method to open iOS settings sc
 
 **Important:** The only officially supported option by Apple is `IOSSettings.App` which opens your app's settings page. Other options use undocumented URL schemes (`App-prefs:`) that may break in future iOS versions or could potentially cause App Store rejection.
 
+**Note:** The iOS Simulator will sometimes only open the Settings app, instead of the specified option. Test on a real device for accurate behavior.
+
 ```typescript
 import { IntentLauncher, IOSSettings } from '@capgo/capacitor-intent-launcher';
 
@@ -106,6 +108,9 @@ Opens iOS settings screen.
 
 Note: The only officially supported option by Apple is `App` which opens your app's settings page.
 Other options may work but are not guaranteed and could break in future iOS versions or cause App Store rejection.
+
+Also note that the iOS Simulator will sometimes only open the Settings app,
+instead of the specified option.
 
 | Param         | Type                                                            | Description                       |
 | ------------- | --------------------------------------------------------------- | --------------------------------- |

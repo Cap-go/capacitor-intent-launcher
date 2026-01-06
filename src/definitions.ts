@@ -34,6 +34,9 @@ export interface IntentLauncherPlugin {
    * Note: The only officially supported option by Apple is `App` which opens your app's settings page.
    * Other options may work but are not guaranteed and could break in future iOS versions or cause App Store rejection.
    *
+   * Also note that the iOS Simulator will sometimes only open the Settings app,
+   * instead of the specified option.
+   *
    * @param options - The iOS settings option to open
    * @returns Promise that resolves with success status
    * @throws Error if the settings screen cannot be opened
@@ -268,6 +271,9 @@ export interface IOSSettingsResult {
  * Note: The only officially supported option by Apple is `App`.
  * Other options use undocumented URL schemes that may break in future iOS versions
  * or cause App Store rejection.
+ *
+ * Also note that the iOS Simulator will sometimes only open the Settings app,
+ * instead of the specified option.
  *
  * @since 8.2.0
  */
