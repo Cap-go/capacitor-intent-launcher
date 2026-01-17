@@ -2,11 +2,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "CapgoIntentLauncher",
+    name: "CapgoCapacitorIntentLauncher",
     platforms: [.iOS(.v15)],
     products: [
         .library(
-            name: "CapgoIntentLauncher",
+            name: "CapgoCapacitorIntentLauncher",
             targets: ["IntentLauncherPlugin"])
     ],
     dependencies: [
