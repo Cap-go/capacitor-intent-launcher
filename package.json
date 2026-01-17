@@ -1,6 +1,6 @@
 {
   "name": "@capgo/capacitor-intent-launcher",
-  "version": "8.3.1",
+  "version": "8.3.2",
   "description": "Capacitor plugin to launch Android intents and open system settings screens on Android and iOS.",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",
@@ -11,7 +11,8 @@
     "android/build.gradle",
     "ios/Sources/",
     "dist/",
-    "CapgoCapacitorIntentLauncher.podspec"
+    "CapgoCapacitorIntentLauncher.podspec",
+    "Package.swift"
   ],
   "author": "Martin Donadieu <martin@capgo.app>",
   "license": "MPL-2.0",
