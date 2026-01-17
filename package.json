@@ -11,7 +11,8 @@
     "android/build.gradle",
     "ios/Sources/",
     "dist/",
-    "CapgoIntentLauncher.podspec"
+    "CapgoIntentLauncher.podspec",
+    "Package.swift"
   ],
   "author": "Martin Donadieu <martin@capgo.app>",
   "license": "MPL-2.0",
