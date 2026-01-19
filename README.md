@@ -37,6 +37,224 @@ npx cap sync
 
 Works out of the box. No additional configuration required.
 
+### Opening Android Settings Screens
+
+The plugin provides access to all Android system settings screens through the `ActivityAction` enum. Here are common examples:
+
+```typescript
+import { IntentLauncher, ActivityAction } from '@capgo/capacitor-intent-launcher';
+
+// Open main settings screen
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.SETTINGS
+});
+
+// Open WiFi settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.WIFI_SETTINGS
+});
+
+// Open Bluetooth settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.BLUETOOTH_SETTINGS
+});
+
+// Open Location settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.LOCATION_SOURCE_SETTINGS
+});
+
+// Open Display settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.DISPLAY_SETTINGS
+});
+
+// Open Sound settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.SOUND_SETTINGS
+});
+
+// Open Notification settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.NOTIFICATION_SETTINGS
+});
+```
+
+### Opening App-Specific Settings
+
+You can open settings for a specific app by passing the package name:
+
+```typescript
+// Open your app's settings page
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.APPLICATION_DETAILS_SETTINGS,
+  data: 'package:com.yourapp.package'
+});
+
+// Open notification settings for your app
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.APP_NOTIFICATION_SETTINGS,
+  extra: {
+    'android.provider.extra.APP_PACKAGE': 'com.yourapp.package'
+  }
+});
+```
+
+### Launching Other Apps
+
+```typescript
+// Open an app by package name
+await IntentLauncher.openApplication({
+  packageName: 'com.google.android.gm' // Gmail
+});
+
+// Get an app's icon
+const { icon } = await IntentLauncher.getApplicationIconAsync({
+  packageName: 'com.google.android.gm'
+});
+// icon is a base64-encoded PNG: 'data:image/png;base64,...'
+```
+
+### Advanced Intent Options
+
+You can pass additional options like extras, flags, and MIME types:
+
+```typescript
+// Open a content picker
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.GET_CONTENT,
+  type: 'image/*',  // MIME type
+  category: 'android.intent.category.OPENABLE'
+});
+
+// Open a URL in the browser
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.VIEW,
+  data: 'https://example.com'
+});
+
+// Send text to another app
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.SEND,
+  type: 'text/plain',
+  extra: {
+    'android.intent.extra.TEXT': 'Hello World!'
+  }
+});
+
+// Make a phone call (requires CALL_PHONE permission)
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.CALL,
+  data: 'tel:+1234567890'
+});
+
+// Open the dialer with a number (no permission required)
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.DIAL,
+  data: 'tel:+1234567890'
+});
+```
+
+### Handling Activity Results
+
+The `startActivityAsync` method returns a result with status information:
+
+```typescript
+const result = await IntentLauncher.startActivityAsync({
+  action: ActivityAction.LOCATION_SOURCE_SETTINGS
+});
+
+console.log('Result code:', result.resultCode);
+// resultCode: -1 = Success, 0 = Canceled, 1+ = Custom user codes
+
+if (result.data) {
+  console.log('Data URI:', result.data);
+}
+
+if (result.extra) {
+  console.log('Extra data:', result.extra);
+}
+```
+
+### Common Use Cases
+
+**Guide users to enable permissions:**
+
+```typescript
+// Location permission
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.LOCATION_SOURCE_SETTINGS
+});
+
+// Battery optimization settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+});
+
+// Overlay permission (draw over other apps)
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.MANAGE_OVERLAY_PERMISSION,
+  data: 'package:com.yourapp.package'
+});
+```
+
+**Network settings:**
+
+```typescript
+// WiFi settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.WIFI_SETTINGS
+});
+
+// Mobile data settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.DATA_USAGE_SETTINGS
+});
+
+// Airplane mode settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.AIRPLANE_MODE_SETTINGS
+});
+```
+
+**Security settings:**
+
+```typescript
+// Biometric enrollment
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.BIOMETRIC_ENROLL
+});
+
+// Fingerprint settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.FINGERPRINT_SETTINGS
+});
+
+// Security settings
+await IntentLauncher.startActivityAsync({
+  action: ActivityAction.SECURITY_SETTINGS
+});
+```
+
+### Android Version Compatibility
+
+Some settings actions are only available on specific Android versions. The plugin includes platform version information in the `ActivityAction` enum comments (e.g., `@platform Android 12+`). If you use an action that's not available on the device's Android version, the intent may fail or fall back to a general settings screen.
+
+### Error Handling
+
+Always wrap intent calls in try-catch blocks:
+
+```typescript
+try {
+  await IntentLauncher.startActivityAsync({
+    action: ActivityAction.WIFI_SETTINGS
+  });
+} catch (error) {
+  console.error('Failed to open settings:', error);
+  // Handle error - e.g., show a message to the user
+}
+```
+
 ## iOS
 
 Works out of the box. Use the `openIOSSettings()` method to open iOS settings screens.
