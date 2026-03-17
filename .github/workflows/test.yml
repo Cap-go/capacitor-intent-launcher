@@ -10,6 +10,7 @@ on:
 
 jobs:
   guard_swiftpm_version:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -22,6 +23,7 @@ jobs:
             exit 1
           fi
   build_ios:
+    timeout-minutes: 30
     runs-on: macOS-latest
     steps:
       - name: Check out
@@ -36,6 +38,7 @@ jobs:
         id: build_code
         run: bun run verify:ios
   build_android:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     steps:
       - name: Check out
@@ -55,6 +58,7 @@ jobs:
         id: build_code
         run: npm run verify:android
   web:
+    timeout-minutes: 30
     runs-on: ubuntu-latest
     name: 'Build code and test'
     steps:
