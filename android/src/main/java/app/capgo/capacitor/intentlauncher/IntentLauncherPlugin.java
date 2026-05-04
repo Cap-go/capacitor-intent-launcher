@@ -26,7 +26,7 @@ import org.json.JSONObject;
 @CapacitorPlugin(name = "IntentLauncher")
 public class IntentLauncherPlugin extends Plugin {
 
-    private final String pluginVersion = "8.3.15";
+    private final String pluginVersion = "8.3.16";
 
     @PluginMethod
     public void startActivityAsync(PluginCall call) {
