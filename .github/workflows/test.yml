@@ -10,13 +10,9 @@ on:
 
 jobs:
   guard_swiftpm_version:
-    timeout-minutes: 30
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
       - name: Check out
         uses: actions/checkout@v6
       - name: Enforce capacitor-swift-pm version
@@ -26,39 +22,17 @@ jobs:
             echo "Expected capacitor-swift-pm to be pinned to 8.0.0 in Package.swift"
             exit 1
           fi
-  build_ios:
-    timeout-minutes: 30
-    runs-on: macOS-latest
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24.x
-      - name: Check out
-        uses: actions/checkout@v6
-      - uses: oven-sh/setup-bun@v2
-      - name: Install dependencies
-        id: install_code
-        run: bun i
-      - name: Check plugin wiring
-        run: bun run check:wiring
-      - name: Build
-        id: build_code
-        run: bun run verify:ios
-      - name: Verify packed package in example app (iOS)
-        shell: bash
-        run: bash ./.github/scripts/verify-packed-example.sh ios
   build_android:
-    timeout-minutes: 30
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
+      - name: Check out
+        uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24.x
-      - name: Check out
-        uses: actions/checkout@v6
-      - uses: oven-sh/setup-bun@v2
       - name: Install dependencies
         id: install_code
         run: bun i
@@ -71,19 +45,37 @@ jobs:
           java-version: '21'
       - name: Build
         id: build_code
-        run: npm run verify:android
+        run: bun run verify:android
       - name: Verify packed package in example app (Android)
         shell: bash
         run: bash ./.github/scripts/verify-packed-example.sh android
-  web:
+  build_ios:
+    runs-on: macOS-latest
     timeout-minutes: 30
-    runs-on: ubuntu-latest
-    name: 'Build code and test'
     steps:
+      - name: Check out
+        uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
           node-version: 24.x
+      - name: Install dependencies
+        id: install_code
+        run: bun i
+      - name: Check plugin wiring
+        run: bun run check:wiring
+      - name: Build
+        id: build_code
+        run: bun run verify:ios
+      - name: Verify packed package in example app (iOS)
+        shell: bash
+        run: bash ./.github/scripts/verify-packed-example.sh ios
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    name: 'Build code and test'
+    steps:
       - name: Check out
         uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
@@ -95,10 +87,6 @@ jobs:
       - name: Lint
         id: lint_code
         run: bun run lint
-      - name: Build
-        id: build_code
-        run: bun run build
-
       - name: Verify packed package in example app (Web)
         shell: bash
         run: bash ./.github/scripts/verify-packed-example.sh web
