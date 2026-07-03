@@ -4,7 +4,7 @@ import pkg from './package.json';
 
 const config: CapacitorConfig = {
   appId: 'app.capgo.intentlauncher',
-  appName: 'Intent Launcher Example',
+  appName: '@capgo/capacitor-intent-launcher',
   webDir: 'dist',
   plugins: {
     SplashScreen: {
