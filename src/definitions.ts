@@ -1897,6 +1897,7 @@ export enum ActivityAction {
    * Opens add account screen.
    * @deprecated Use ADD_ACCOUNT_SETTINGS instead.
    */
+  // eslint-disable-next-line @typescript-eslint/no-duplicate-enum-values -- backward-compatible alias
   ADD_ACCOUNT = 'android.settings.ADD_ACCOUNT_SETTINGS',
 
   /**
