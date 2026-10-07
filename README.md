@@ -1,12 +1,27 @@
 # @capgo/capacitor-intent-launcher
-<a href="https://capgo.app/"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-intent-launcher" alt="Capgo - Instant updates for Capacitor" /></a>
+
+Launch Android intents and open system settings screens from your Capacitor app, and open iOS settings pages. Send users straight to the setting they need to change.
+
+<a href="https://capgo.app/?ref=plugin_intent_launcher"><img src="https://capgo.app/readme-banner.svg?repo=Cap-go/capacitor-intent-launcher" alt="Capgo - Instant updates for Capacitor" /></a>
 
 <div align="center">
-  <h2><a href="https://capgo.app/?ref=plugin_intent_launcher"> ➡️ Get Instant updates for your App with Capgo</a></h2>
-  <h2><a href="https://capgo.app/consulting/?ref=plugin_intent_launcher"> Missing a feature? We'll build the plugin for you 💪</a></h2>
+  <p><b>Capgo</b>: open-source live updates for Ionic and Capacitor apps. Ship OTA fixes and features instantly, without waiting for app store review.</p>
+  <h2><a href="https://capgo.app/register/?ref=plugin_intent_launcher">➡️ Get started for free</a></h2>
+  <p>14-day unlimited free trial. No credit card required</p>
+  <p><a href="https://capgo.app/consulting/?ref=plugin_intent_launcher">Missing a feature? We'll build the plugin for you 💪</a></p>
 </div>
 
-Launch Android intents and open system settings screens on Android and iOS from your Capacitor app.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/Cap-go/capacitor-intent-launcher/main/assets/github-social-preview.png" alt="@capgo/capacitor-intent-launcher for Capacitor apps" width="300" />
+</p>
+
+## Key features
+
+- **Android intents**: `startActivityAsync()` starts any activity with action, data, extras and flags, and returns the result.
+- **iOS settings**: `openIOSSettings()` opens a settings screen.
+- **Open apps**: `openApplication()` launches another app by package name on Android.
+- **App icons**: `getApplicationIconAsync()` returns an installed app's icon as base64 on Android.
+- **Platforms**: iOS and Android. Not available on web.
 
 ## Why Capacitor Intent Launcher?
 
